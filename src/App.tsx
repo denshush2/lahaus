@@ -1,24 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { Title } from "./components/Title";
+import { Header } from "./containers/Header";
+import { Card } from "./components/Card";
+import { useCards } from "./hooks/useCards";
 
 function App() {
+  const { getCards, cards } = useCards();
+  useEffect(() => {
+    if (cards.length === 0) {
+      getCards();
+    }
+  }, [cards, getCards]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="min-h-full">
+      <Header />
+      <main className="min-w-full">
+        <section
+          className="
+        flex
+        justify-center
+        my-14	
+        "
         >
-          Learn React
-        </a>
-      </header>
+          <Title />
+        </section>
+        <section className="m-auto container grid sm:grid-cols-1 md:grid-cols-3 gap-4">
+          {/* {console.log("CARDS", cards)} */}
+          {cards.map((card) => (
+            <Card images={card.images} title={card.title} />
+          ))}
+          <Card images={[]} title="Crear nueva lista" type="addNew" />
+        </section>
+      </main>
     </div>
   );
 }
