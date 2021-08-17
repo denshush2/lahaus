@@ -30,6 +30,8 @@
     "start:json": "json-server -p 4000 ./db.json",
     "start": "npm-run-all --parallel start:web start:json",
     "build": "craco build",
+    "predeploy": "craco build",
+    "deploy": "gh-pages -d build",
     "test": "craco test",
     "eject": "craco eject",
     "format": "prettier --write src/**/*.ts{,x}",
